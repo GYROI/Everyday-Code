@@ -58,7 +58,8 @@ int main() {
     SDL_Texture* textureBG = loadTexture("D:/bg.bmp");
     SDL_Texture* textureburger = loadTexture("D:/pngtree-burger-vector-illustration-isolated-on-white-background-hamburger-clip-art-png-image_5067294-removebg-preview.bmp");
     SDL_Texture* textureGun = loadTexture("D:/png-transparent-gun-pistol-firearm-others-miscellaneous-handgun-airsoft.bmp");
-    if (textureBG == nullptr || textureburger == nullptr || textureGun == nullptr) {
+    SDL_Texture* textureBullet = loadTexture("D:/images.bmp");
+    if (textureBG == nullptr || textureburger == nullptr || textureGun == nullptr || textureBullet == nullptr) {
         cout << "Failed to load texture!" << endl;
         return -1;
     }
@@ -68,22 +69,32 @@ int main() {
     SDL_Rect destbg = { 0, 0, SCREENW, SCREENH };
     SDL_Rect destRectBurger = { 0, 50, 100, 150 };
     SDL_Rect destRectPistol = { SCREENW - 250, 50, 200, 150 };
+    SDL_Rect destRectBullet = { SCREENW - 1000, destRectPistol.y, 200, 150 }; // Bullet dimensions
     int rectPistolYMov = 25;
     bool burgerVisible = true;
     int respawnY = 50;
+    bool bulletVisible = false;
 
     while (irun) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE) {
                 irun = false;
-            } else if(e.type == SDL_KEYDOWN){
-                if(e.key.keysym.sym == SDLK_w){
-                    if(destRectPistol.y - rectPistolYMov >= 0){
+            } else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_w) {
+                    if (destRectPistol.y - rectPistolYMov >= 0) {
                         destRectPistol.y -= rectPistolYMov;
                     }
-                } else if(e.key.keysym.sym == SDLK_s){
-                     if (destRectPistol.y + destRectPistol.h + rectPistolYMov <= SCREENH) {
+                } else if (e.key.keysym.sym == SDLK_s) {
+                    if (destRectPistol.y + destRectPistol.h + rectPistolYMov <= SCREENH) {
                         destRectPistol.y += rectPistolYMov;
+                    }
+                }
+
+                if (e.key.keysym.sym == SDLK_RETURN) {
+                    if (!bulletVisible) {
+                        bulletVisible = true;
+                        destRectBullet.x = destRectPistol.x;
+                        destRectBullet.y = destRectPistol.y + destRectPistol.h / 2 - destRectBullet.h / 2;
                     }
                 }
             }
@@ -99,6 +110,22 @@ int main() {
             respawnY = rand() % (SCREENH - destRectBurger.h);
         }
 
+        if (bulletVisible) {
+            destRectBullet.x -= 25; // Adjust bullet speed
+                if (destRectBullet.x > SCREENW) {
+                    bulletVisible = false;
+                }
+
+                // Check for collision with burger
+                if (destRectBullet.x < destRectBurger.x + destRectBurger.w && destRectBullet.x + destRectBullet.w > destRectBurger.x &&
+                    destRectBullet.y < destRectBurger.y + destRectBurger.h && destRectBullet.y + destRectBullet.h > destRectBurger.y) {
+                    burgerVisible = false;
+                    destRectBurger.x = 0; // Reset X position of the burger
+                    respawnY = rand() % (SCREENH - destRectBurger.h);
+                    bulletVisible = false; // Reset bullet visibility
+                }
+}
+
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, textureBG, NULL, &destbg);
 
@@ -108,9 +135,15 @@ int main() {
         }
 
         SDL_RenderCopy(renderer, textureGun, NULL, &destRectPistol);
+
+        if (bulletVisible) {
+            SDL_RenderCopy(renderer, textureBullet, NULL, &destRectBullet);
+        }
+
         SDL_RenderPresent(renderer);
     }
 
+    SDL_DestroyTexture(textureBullet);
     SDL_DestroyTexture(textureBG);
     SDL_DestroyTexture(textureburger);
     SDL_DestroyTexture(textureGun);
