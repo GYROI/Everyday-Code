@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <cstdlib> // Include this header for rand() function
-
+#include "windows.h"
 #define SCREENW 800
 #define SCREENH 600
 #undef main
@@ -69,11 +69,14 @@ int main() {
     SDL_Rect destbg = { 0, 0, SCREENW, SCREENH };
     SDL_Rect destRectBurger = { 0, 50, 100, 150 };
     SDL_Rect destRectPistol = { SCREENW - 250, 50, 200, 150 };
-    SDL_Rect destRectBullet = { SCREENW - 1000, destRectPistol.y, 200, 150 }; // Bullet dimensions
+    SDL_Rect destRectBullet = { 500, destRectPistol.y + 50, 200, 150 }; // Bullet dimensions
+
     int rectPistolYMov = 25;
     bool burgerVisible = true;
     int respawnY = 50;
     bool bulletVisible = false;
+    Uint32 lastShotTime = 0;
+    Uint32 shootingDelay = 500;
 
     while (irun) {
         while (SDL_PollEvent(&e) != 0) {
@@ -91,10 +94,14 @@ int main() {
                 }
 
                 if (e.key.keysym.sym == SDLK_RETURN) {
-                    if (!bulletVisible) {
-                        bulletVisible = true;
-                        destRectBullet.x = destRectPistol.x;
-                        destRectBullet.y = destRectPistol.y + destRectPistol.h / 2 - destRectBullet.h / 2;
+                    Uint32 currentTime = SDL_GetTicks();
+                    if (currentTime - lastShotTime >= shootingDelay) {
+                        if (!bulletVisible) {
+                            bulletVisible = true;
+                            destRectBullet.x = destRectPistol.x;
+                            destRectBullet.y = destRectPistol.y + destRectPistol.h / 2 - destRectBullet.h / 2;
+                            lastShotTime = currentTime;  // Update the last shot time
+                        }
                     }
                 }
             }
@@ -111,20 +118,22 @@ int main() {
         }
 
         if (bulletVisible) {
-            destRectBullet.x -= 25; // Adjust bullet speed
-                if (destRectBullet.x > SCREENW) {
-                    bulletVisible = false;
-                }
+            destRectBullet.x -= 20; // Adjust bullet speed
+            if (destRectBullet.x + destRectBullet.w < 0 || destRectBullet.x > SCREENW) {
+                bulletVisible = false;
+            }
 
-                // Check for collision with burger
-                if (destRectBullet.x < destRectBurger.x + destRectBurger.w && destRectBullet.x + destRectBullet.w > destRectBurger.x &&
-                    destRectBullet.y < destRectBurger.y + destRectBurger.h && destRectBullet.y + destRectBullet.h > destRectBurger.y) {
-                    burgerVisible = false;
-                    destRectBurger.x = 0; // Reset X position of the burger
-                    respawnY = rand() % (SCREENH - destRectBurger.h);
-                    bulletVisible = false; // Reset bullet visibility
-                }
-}
+            // Check for collision with burger
+            if (destRectBullet.x < destRectBurger.x + destRectBurger.w &&
+                destRectBullet.x + destRectBullet.w > destRectBurger.x &&
+                destRectBullet.y < destRectBurger.y + destRectBurger.h &&
+                destRectBullet.y + destRectBullet.h > destRectBurger.y) {
+                burgerVisible = false;
+                destRectBurger.x = 0; // Reset X position of the burger
+                respawnY = rand() % (SCREENH - destRectBurger.h);
+                bulletVisible = false; // Reset bullet visibility
+            }
+        }
 
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, textureBG, NULL, &destbg);
