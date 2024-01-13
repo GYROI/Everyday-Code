@@ -108,13 +108,20 @@ int main() {
         }
 
         destRectPistol.y = destRectPistol.y;
-        destRectBurger.x += rectBurgerX;
+        destRectBurger.x -= 5; // Adjust the speed at which the burger moves on the x-axis
+        if (destRectBurger.x + destRectBurger.w < 0) {
+            respawnY = rand() % (SCREENH - destRectBurger.h);
+            destRectBurger.x = SCREENW - destRectBurger.w; // Move the burger out of the screen on the x-axis
+            destRectBurger.y = respawnY;
+        }
+
 
         if (destRectBurger.x < destRectPistol.x + destRectPistol.w && destRectBurger.x + destRectBurger.w > destRectPistol.x &&
             destRectBurger.y < destRectPistol.y + destRectPistol.h && destRectBurger.y + destRectBurger.h > destRectPistol.y) {
             burgerVisible = false;
-            destRectBurger.x = 0; // Reset X position of the burger
-            respawnY = rand() % (SCREENH - destRectBurger.h);
+            respawnY = rand() % (SCREENH - destRectBurger.h); // Random respawn along the y-axis
+            destRectBurger.x = SCREENW; // Move the burger out of the screen on the x-axis
+            destRectBurger.y = respawnY; // Set the new y position for the respawned burger
         }
 
         if (bulletVisible) {
@@ -129,8 +136,9 @@ int main() {
                 destRectBullet.y < destRectBurger.y + destRectBurger.h &&
                 destRectBullet.y + destRectBullet.h > destRectBurger.y) {
                 burgerVisible = false;
-                destRectBurger.x = 0; // Reset X position of the burger
                 respawnY = rand() % (SCREENH - destRectBurger.h);
+                destRectBurger.x = SCREENW; // Move the burger out of the screen on the x-axis
+                destRectBurger.y = respawnY;
                 bulletVisible = false; // Reset bullet visibility
             }
         }
