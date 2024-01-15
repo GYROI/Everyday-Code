@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <cstdlib> // Include this header for rand() function
 #include "windows.h"
 #define SCREENW 800
 #define SCREENH 600
@@ -50,31 +49,53 @@ void quitSDL() {
     SDL_Quit();
 }
 
+void rect(SDL_Renderer* renderer, SDL_Texture* texture, int x, int y, int w, int h) {
+    SDL_Rect rectd = { x, y, w, h };
+    SDL_RenderCopy(renderer, texture, NULL, &rectd);
+}
+
 int main() {
     initSDL(window, renderer, "Fold the Jeans");
     SDL_Event e;
     bool irun = true;
 
     SDL_Texture* textureBG = loadTexture("D:/yellowbg.bmp");
-    if (textureBG == nullptr) {
+    SDL_Texture* tidied = loadTexture("D:/tidied.bmp");
+    SDL_Texture* f1 = loadTexture("D:/f1.bmp");
+    SDL_Texture* folded = loadTexture("D:/done.bmp");
+
+    if (textureBG == nullptr || tidied == nullptr || f1 == nullptr || folded == nullptr) {
         cout << "Failed to load texture!" << endl;
         return -1;
     }
+
+    int tidiedX = (SCREENW - 100) / 2;
+    int tidiedY = (SCREENH - 200) / 2;
+    SDL_Texture* currentTexture = tidied;  // Initially set to tidied
 
     while (irun) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE) {
                 irun = false;
             } else if (e.type == SDL_KEYDOWN) {
-
+                if (e.key.keysym.sym == SDLK_a) {
+                    SDL_DestroyTexture(currentTexture);
+                    currentTexture = f1;
+                } else if (e.key.keysym.sym == SDLK_w) {
+                    SDL_DestroyTexture(currentTexture);
+                    currentTexture = folded;
+                    irun = false;
+                }
+            }
         }
 
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, textureBG, NULL, NULL);
 
 
+        rect(renderer, currentTexture, tidiedX, tidiedY, 100, 200);
+
         SDL_RenderPresent(renderer);
-    }
     }
 
     SDL_DestroyTexture(textureBG);
