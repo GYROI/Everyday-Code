@@ -11,10 +11,17 @@ using namespace std;
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 
-SDL_Rect boxpoint = {0, 0, 40, 40}; // Starting point for 'a' and 'b'
-uint32_t pointmovement = 40; // Initial movement value, set to boxpoint.w
-vector<SDL_Rect> aBoxes; // Vector to store boxes for 'a'
-vector<SDL_Rect> bBoxes; // Vector to store boxes for 'b'
+SDL_Rect boxpoint = {0, 0, 40, 40};
+uint32_t pointmovement = 40;
+vector<SDL_Rect> aBoxes;
+vector<SDL_Rect> bBoxes;
+vector<SDL_Rect> cBoxes;
+vector<SDL_Rect> dBoxes;
+vector<SDL_Rect> eBoxes;
+vector<SDL_Rect> fBoxes;
+vector<SDL_Rect> gBoxes;
+vector<SDL_Rect> hBoxes;
+vector<SDL_Rect> iBoxes;
 
 SDL_Texture* loadTexture(const std::string& filePath, SDL_Renderer* renderer) {
     SDL_Texture* texture = nullptr;
@@ -37,7 +44,7 @@ void initSDL() {
         exit(EXIT_FAILURE);
     }
 
-    window = SDL_CreateWindow("Rotation Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Hieroglyphic Keyboard", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         cout << "Window couldn't be created: " << SDL_GetError() << endl;
         SDL_Quit();
@@ -101,7 +108,15 @@ int main() {
     SDL_Texture* bg = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//background.bmp", renderer);
     SDL_Texture* ah = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//a.bmp", renderer);
     SDL_Texture* bh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//b.bmp", renderer);
-    if (bg == nullptr || ah == nullptr || bh == nullptr) {
+    SDL_Texture* ch = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//c.bmp", renderer);
+    SDL_Texture* dh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//d.bmp", renderer);
+    SDL_Texture* eh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//e.bmp", renderer);
+    SDL_Texture* fh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//f.bmp", renderer);
+    SDL_Texture* gh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//g.bmp", renderer);
+    SDL_Texture* hh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//h.bmp", renderer);
+    SDL_Texture* ih = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//i.bmp", renderer);
+    if (bg == nullptr || ah == nullptr || bh == nullptr || ch == nullptr || dh == nullptr ||eh == nullptr || fh == nullptr ||
+        gh == nullptr || hh == nullptr || ih == nullptr ) {
         cout << "IMAGE CAN'T BE LOADED" << SDL_GetError() << endl;
         isRunning = false;
     }
@@ -121,6 +136,27 @@ int main() {
                 } else if (e.key.keysym.sym == SDLK_b) {
                     loadPoint(bh, boxpoint, bBoxes);
                     boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_c) {
+                    loadPoint(bh, boxpoint, cBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_d) {
+                    loadPoint(bh, boxpoint, dBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_e) {
+                    loadPoint(bh, boxpoint, eBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_f) {
+                    loadPoint(bh, boxpoint, fBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_g) {
+                    loadPoint(bh, boxpoint, gBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_h) {
+                    loadPoint(bh, boxpoint, hBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_i) {
+                    loadPoint(bh, boxpoint, iBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
                 }
             }
         }
@@ -134,6 +170,34 @@ int main() {
 
         for (const auto& box : bBoxes) {
             SDL_RenderCopy(renderer, bh, nullptr, &box);
+        }
+
+        for (const auto& box : cBoxes) {
+            SDL_RenderCopy(renderer, ch, nullptr, &box);
+        }
+
+        for (const auto& box : dBoxes) {
+            SDL_RenderCopy(renderer, dh, nullptr, &box);
+        }
+
+        for (const auto& box : eBoxes) {
+            SDL_RenderCopy(renderer, eh, nullptr, &box);
+        }
+
+        for (const auto& box : fBoxes) {
+            SDL_RenderCopy(renderer, fh, nullptr, &box);
+        }
+
+        for (const auto& box : gBoxes) {
+            SDL_RenderCopy(renderer, gh, nullptr, &box);
+        }
+
+        for (const auto& box : hBoxes) {
+            SDL_RenderCopy(renderer, hh, nullptr, &box);
+        }
+
+        for (const auto& box : iBoxes) {
+            SDL_RenderCopy(renderer, ih, nullptr, &box);
         }
 
         SDL_RenderPresent(renderer);
