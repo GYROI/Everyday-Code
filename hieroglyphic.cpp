@@ -22,6 +22,24 @@ vector<SDL_Rect> fBoxes;
 vector<SDL_Rect> gBoxes;
 vector<SDL_Rect> hBoxes;
 vector<SDL_Rect> iBoxes;
+vector<SDL_Rect> jBoxes;
+vector<SDL_Rect> kBoxes;
+vector<SDL_Rect> lBoxes;
+vector<SDL_Rect> mBoxes;
+vector<SDL_Rect> nBoxes;
+vector<SDL_Rect> oBoxes;
+vector<SDL_Rect> pBoxes;
+vector<SDL_Rect> qBoxes;
+vector<SDL_Rect> rBoxes;
+vector<SDL_Rect> sBoxes;
+vector<SDL_Rect> tBoxes;
+vector<SDL_Rect> uBoxes;
+vector<SDL_Rect> vBoxes;
+vector<SDL_Rect> wBoxes;
+vector<SDL_Rect> xBoxes;
+vector<SDL_Rect> yBoxes;
+vector<SDL_Rect> zBoxes;
+
 
 SDL_Texture* loadTexture(const std::string& filePath, SDL_Renderer* renderer) {
     SDL_Texture* texture = nullptr;
@@ -115,8 +133,28 @@ int main() {
     SDL_Texture* gh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//g.bmp", renderer);
     SDL_Texture* hh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//h.bmp", renderer);
     SDL_Texture* ih = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//i.bmp", renderer);
+    SDL_Texture* jh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//j.bmp", renderer);
+    SDL_Texture* kh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//k.bmp", renderer);
+    SDL_Texture* lh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//l.bmp", renderer);
+    SDL_Texture* mh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//m.bmp", renderer);
+    SDL_Texture* nh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//n.bmp", renderer);
+    SDL_Texture* oh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//o.bmp", renderer);
+    SDL_Texture* ph = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//p.bmp", renderer);
+    SDL_Texture* qh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//q.bmp", renderer);
+    SDL_Texture* rh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//r.bmp", renderer);
+    SDL_Texture* sh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//s.bmp", renderer);
+    SDL_Texture* th = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//t.bmp", renderer);
+    SDL_Texture* uh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//u.bmp", renderer);
+    SDL_Texture* vh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//v.bmp", renderer);
+    SDL_Texture* wh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//w.bmp", renderer);
+    SDL_Texture* xh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//x.bmp", renderer);
+    SDL_Texture* yh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//y.bmp", renderer);
+    SDL_Texture* zh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//z.bmp", renderer);
+
     if (bg == nullptr || ah == nullptr || bh == nullptr || ch == nullptr || dh == nullptr ||eh == nullptr || fh == nullptr ||
-        gh == nullptr || hh == nullptr || ih == nullptr ) {
+        gh == nullptr || hh == nullptr || ih == nullptr || jh == nullptr || kh == nullptr || lh == nullptr || mh == nullptr ||
+        nh == nullptr || oh == nullptr || ph == nullptr || qh == nullptr || rh == nullptr || sh == nullptr || th == nullptr ||
+        vh == nullptr || wh == nullptr || xh == nullptr || yh == nullptr || zh == nullptr ) {
         cout << "IMAGE CAN'T BE LOADED" << SDL_GetError() << endl;
         isRunning = false;
     }
@@ -137,25 +175,76 @@ int main() {
                     loadPoint(bh, boxpoint, bBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_c) {
-                    loadPoint(bh, boxpoint, cBoxes);
+                    loadPoint(ch, boxpoint, cBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_d) {
-                    loadPoint(bh, boxpoint, dBoxes);
+                    loadPoint(dh, boxpoint, dBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_e) {
-                    loadPoint(bh, boxpoint, eBoxes);
+                    loadPoint(eh, boxpoint, eBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_f) {
-                    loadPoint(bh, boxpoint, fBoxes);
+                    loadPoint(fh, boxpoint, fBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_g) {
-                    loadPoint(bh, boxpoint, gBoxes);
+                    loadPoint(gh, boxpoint, gBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_h) {
-                    loadPoint(bh, boxpoint, hBoxes);
+                    loadPoint(hh, boxpoint, hBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_i) {
-                    loadPoint(bh, boxpoint, iBoxes);
+                    loadPoint(ih, boxpoint, iBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_j) {
+                    loadPoint(jh, boxpoint, jBoxes);
+                    boxpoint.x+= (boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_k) {
+                    loadPoint(kh, boxpoint, kBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_l) {
+                    loadPoint(lh, boxpoint, lBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_m) {
+                    loadPoint(mh, boxpoint, mBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_n) {
+                    loadPoint(nh, boxpoint, nBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_o) {
+                    loadPoint(oh, boxpoint, oBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_p) {
+                    loadPoint(ph, boxpoint, pBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_q) {
+                    loadPoint(qh, boxpoint, qBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_r) {
+                    loadPoint(rh, boxpoint, rBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_s) {
+                    loadPoint(sh, boxpoint, sBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_t) {
+                    loadPoint(th, boxpoint, tBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_u) {
+                    loadPoint(uh, boxpoint, uBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_v) {
+                    loadPoint(vh, boxpoint, vBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_w) {
+                    loadPoint(wh, boxpoint, wBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_x) {
+                    loadPoint(xh, boxpoint, xBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_y) {
+                    loadPoint(yh, boxpoint, yBoxes);
+                    boxpoint.x+=(boxpoint.w/2);
+                } else if (e.key.keysym.sym == SDLK_z) {
+                    loadPoint(zh, boxpoint, zBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 }
             }
@@ -200,6 +289,73 @@ int main() {
             SDL_RenderCopy(renderer, ih, nullptr, &box);
         }
 
+        for (const auto& box : jBoxes) {
+            SDL_RenderCopy(renderer, jh, nullptr, &box);
+        }
+
+        for (const auto& box : kBoxes) {
+            SDL_RenderCopy(renderer, kh, nullptr, &box);
+        }
+
+        for (const auto& box : lBoxes) {
+            SDL_RenderCopy(renderer, lh, nullptr, &box);
+        }
+
+        for (const auto& box : mBoxes) {
+            SDL_RenderCopy(renderer, mh, nullptr, &box);
+        }
+
+        for (const auto& box : nBoxes) {
+            SDL_RenderCopy(renderer, nh, nullptr, &box);
+        }
+
+        for (const auto& box : oBoxes) {
+            SDL_RenderCopy(renderer, oh, nullptr, &box);
+        }
+
+        for (const auto& box : pBoxes) {
+            SDL_RenderCopy(renderer, ph, nullptr, &box);
+        }
+
+        for (const auto& box : qBoxes) {
+            SDL_RenderCopy(renderer, qh, nullptr, &box);
+        }
+
+        for (const auto& box : rBoxes) {
+            SDL_RenderCopy(renderer, rh, nullptr, &box);
+        }
+
+        for (const auto& box : sBoxes) {
+            SDL_RenderCopy(renderer, sh, nullptr, &box);
+        }
+
+        for (const auto& box : tBoxes) {
+            SDL_RenderCopy(renderer, th, nullptr, &box);
+        }
+
+        for (const auto& box : uBoxes) {
+            SDL_RenderCopy(renderer, uh, nullptr, &box);
+        }
+
+        for (const auto& box : vBoxes) {
+            SDL_RenderCopy(renderer, vh, nullptr, &box);
+        }
+
+        for (const auto& box : wBoxes) {
+            SDL_RenderCopy(renderer, wh, nullptr, &box);
+        }
+
+        for (const auto& box : xBoxes) {
+            SDL_RenderCopy(renderer, xh, nullptr, &box);
+        }
+
+        for (const auto& box : yBoxes) {
+            SDL_RenderCopy(renderer, yh, nullptr, &box);
+        }
+
+        for (const auto& box : zBoxes) {
+            SDL_RenderCopy(renderer, zh, nullptr, &box);
+        }
         SDL_RenderPresent(renderer);
         capFrameRate(startTicks);
     }
