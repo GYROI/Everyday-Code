@@ -39,6 +39,7 @@ vector<SDL_Rect> wBoxes;
 vector<SDL_Rect> xBoxes;
 vector<SDL_Rect> yBoxes;
 vector<SDL_Rect> zBoxes;
+vector<SDL_Rect> currentBox;
 
 
 SDL_Texture* loadTexture(const std::string& filePath, SDL_Renderer* renderer) {
@@ -118,11 +119,18 @@ void loadPoint(SDL_Texture* point, SDL_Rect& pointrect, vector<SDL_Rect>& boxes)
     boxes.push_back(pointrect);
 }
 
+void backspace(vector<SDL_Rect>& boxes) {
+    if (!boxes.empty()) {
+        boxes.pop_back(); // Remove the last box
+    }
+}
+
 int main() {
     initSDL();
 
     SDL_Event e;
     bool isRunning = true;
+    SDL_Texture* currentTexture;
     SDL_Texture* bg = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//background.bmp", renderer);
     SDL_Texture* ah = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//a.bmp", renderer);
     SDL_Texture* bh = loadTexture("C://Users//User//Desktop//SDL//wudooooo//gametext//b.bmp", renderer);
@@ -168,82 +176,136 @@ int main() {
             } else if (e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_ESCAPE) {
                     isRunning = false;
+                } else if (e.key.keysym.sym == SDLK_BACKSPACE || e.key.keysym.sym == SDLK_DELETE){
+                    backspace(currentBox);
                 } else if (e.key.keysym.sym == SDLK_a) {
+                    currentBox = aBoxes;
+
                     loadPoint(ah, boxpoint, aBoxes);
                     boxpoint.x+= (boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_b) {
+                    currentBox = bBoxes;
+
                     loadPoint(bh, boxpoint, bBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_c) {
+                    currentBox = cBoxes;
+
                     loadPoint(ch, boxpoint, cBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_d) {
+                    currentBox = dBoxes;
+
                     loadPoint(dh, boxpoint, dBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_e) {
+                    currentBox = eBoxes;
+
                     loadPoint(eh, boxpoint, eBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_f) {
+                    currentBox = fBoxes;
+
                     loadPoint(fh, boxpoint, fBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_g) {
+                    currentBox = gBoxes;
+
                     loadPoint(gh, boxpoint, gBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_h) {
+                    currentBox = hBoxes;
+
                     loadPoint(hh, boxpoint, hBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_i) {
+                    currentBox = iBoxes;
+
                     loadPoint(ih, boxpoint, iBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_j) {
+                    currentBox = jBoxes;
+
                     loadPoint(jh, boxpoint, jBoxes);
                     boxpoint.x+= (boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_k) {
+                    currentBox = kBoxes;
+
                     loadPoint(kh, boxpoint, kBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_l) {
+                    currentBox = lBoxes;
+
                     loadPoint(lh, boxpoint, lBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_m) {
+                    currentBox = mBoxes;
+
                     loadPoint(mh, boxpoint, mBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_n) {
+                    currentBox = nBoxes;
+
                     loadPoint(nh, boxpoint, nBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_o) {
+                    currentBox = oBoxes;
+
                     loadPoint(oh, boxpoint, oBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_p) {
+                    currentBox = pBoxes;
+
                     loadPoint(ph, boxpoint, pBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_q) {
+                    currentBox = qBoxes;
+
                     loadPoint(qh, boxpoint, qBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_r) {
+                    currentBox = rBoxes;
+
                     loadPoint(rh, boxpoint, rBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_s) {
+                    currentBox = sBoxes;
+
                     loadPoint(sh, boxpoint, sBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_t) {
+                    currentBox = tBoxes;
+
                     loadPoint(th, boxpoint, tBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_u) {
+                    currentBox = uBoxes;
+
                     loadPoint(uh, boxpoint, uBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_v) {
+                    currentBox = vBoxes;
+
                     loadPoint(vh, boxpoint, vBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_w) {
+                    currentBox = wBoxes;
+
                     loadPoint(wh, boxpoint, wBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_x) {
+                    currentBox = xBoxes;
+
                     loadPoint(xh, boxpoint, xBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_y) {
+                    currentBox = yBoxes;
+
                     loadPoint(yh, boxpoint, yBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 } else if (e.key.keysym.sym == SDLK_z) {
+                    currentBox = zBoxes;
+
                     loadPoint(zh, boxpoint, zBoxes);
                     boxpoint.x+=(boxpoint.w/2);
                 }
@@ -361,6 +423,32 @@ int main() {
     }
 
     SDL_DestroyTexture(bg);
+    SDL_DestroyTexture(ah);
+    SDL_DestroyTexture(bh);
+    SDL_DestroyTexture(ch);
+    SDL_DestroyTexture(dh);
+    SDL_DestroyTexture(eh);
+    SDL_DestroyTexture(fh);
+    SDL_DestroyTexture(gh);
+    SDL_DestroyTexture(hh);
+    SDL_DestroyTexture(ih);
+    SDL_DestroyTexture(jh);
+    SDL_DestroyTexture(kh);
+    SDL_DestroyTexture(lh);
+    SDL_DestroyTexture(mh);
+    SDL_DestroyTexture(nh);
+    SDL_DestroyTexture(oh);
+    SDL_DestroyTexture(ph);
+    SDL_DestroyTexture(qh);
+    SDL_DestroyTexture(rh);
+    SDL_DestroyTexture(sh);
+    SDL_DestroyTexture(th);
+    SDL_DestroyTexture(uh);
+    SDL_DestroyTexture(vh);
+    SDL_DestroyTexture(wh);
+    SDL_DestroyTexture(xh);
+    SDL_DestroyTexture(yh);
+    SDL_DestroyTexture(zh);
 
     quitSDL();
 
