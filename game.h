@@ -6,13 +6,14 @@
 #include <string>
 
 using namespace std;
-
-    class Game{
+class Game{
     public :
         void initSDL(SDL_Window*& window, SDL_Renderer*& renderer);
         void close(SDL_Window*& window, SDL_Renderer*& renderer);
-        void loadTexture(SDL_Texture* texture, const string& path);
-    };
+        void capFrame(Uint32 startticks);
+        SDL_Texture* loadTexture(SDL_Renderer*& renderer, const string& path);
+        void returnMario(SDL_Rect& marioRect);
+};
 
 #endif // GAME_H
 
