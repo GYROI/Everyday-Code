@@ -12,6 +12,7 @@ class Game{
         void close(SDL_Window*& window, SDL_Renderer*& renderer);
         void capFrame(Uint32 startticks);
         SDL_Texture* loadTexture(SDL_Renderer*& renderer, const string& path);
+        bool checkCol(SDL_Rect& P, SDL_Rect& B);
         void returnMario(SDL_Rect& marioRect);
 };
 
