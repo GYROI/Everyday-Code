@@ -5,15 +5,10 @@
 #define SCREENH 600
 const int JUMPH = 100;
 const int Gravity = 5;
-const char* FONT_PATH = "C:/Users/User/Desktop/SDL/mario/textures/Gotham Bold.ttf";
-const int FONT_SIZE = 40;
-
 using namespace std;
 #undef main
 
-int score = 1;
-string scores = to_string(score);
-const char* scoresp = scores.c_str();
+
 void Game::initSDL(SDL_Window*& window, SDL_Renderer*& renderer) {
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0){
         cout << "SDL CANT BE INITIATED" << SDL_GetError() << endl;
@@ -56,22 +51,17 @@ SDL_Texture* Game::loadTexture(SDL_Renderer*& renderer, const string& path){
 
     return texture;
 }
-
-void Game::Score(SDL_Renderer*& renderer, TTF_Font*& font, const char* text, SDL_Color& color, int x, int y){
-    SDL_Surface* surface = TTF_RenderText_Solid(font, text, color );
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    SDL_Rect rect = { x, y, surface->w, surface->h };
-    SDL_RenderCopy(renderer, texture, NULL, &rect);
-
-    SDL_FreeSurface(surface);
-    SDL_DestroyTexture(texture);
+void Game::RandomizeBlock(SDL_Rect& blockRect){
+    srand((unsigned)time(NULL));
+    int x = 178 + (rand()% 590);
+    blockRect.x = x;
 }
-
-void Game::returnMario(SDL_Rect& marioRect){
+void Game::returnMario(SDL_Rect& marioRect, SDL_Rect& blockRect){
     if(marioRect.x >= SCREENW){
         marioRect.x = 0 - marioRect.w;
+        RandomizeBlock(blockRect);
     }
+
 }
 
 bool Game::checkCol(SDL_Rect& P, SDL_Rect& B) {
@@ -84,6 +74,7 @@ bool Game::checkCol(SDL_Rect& P, SDL_Rect& B) {
     // Return true if there is no collision (both horizontal and vertical)
     return !(horizontalCollision || verticalCollision);
 }
+
 void Game::close(SDL_Window*& window, SDL_Renderer*& renderer) {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
@@ -91,32 +82,19 @@ void Game::close(SDL_Window*& window, SDL_Renderer*& renderer) {
 }
 
 int main(){
+    Game meGame;
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Rect marioSize = {0, 473, 51, 53};
     SDL_Rect landS = {0, 526, 812, 90};
     SDL_Color windowCl = {255,255,255};
-    SDL_Rect blockS = {374, 457, 52, 69};
+    SDL_Rect blockS = {178, 457, 52, 69};
     SDL_Color TextC = {255, 255, 255};
-
-    Game meGame;
-
     meGame.initSDL(window, renderer);
-
     SDL_Event e;
     bool isRunning = true;
     bool isJumping = false;
     int jumpH = 0;
-    TTF_Font* font = TTF_OpenFont(FONT_PATH, FONT_SIZE);
-    if (!font) {
-        cout << "Failed to load font: " << TTF_GetError() << endl;
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        TTF_Quit();
-        SDL_Quit();
-        return -1;
-    }
-
 
     SDL_Texture* texture = meGame.loadTexture(renderer, "C:/Users/User/Desktop/SDL/mario/textures/t1.bmp");
     SDL_Texture* land = meGame.loadTexture(renderer, "C:/Users/User/Desktop/SDL/mario/textures/land.bmp");
@@ -131,8 +109,8 @@ int main(){
                 isRunning = false;
             } else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RIGHT){
                 if(!meGame.checkCol(marioSize, blockS)){
-                     marioSize.x += 10;
-                     meGame.returnMario(marioSize);
+                    marioSize.x += 10;
+                     meGame.returnMario(marioSize, blockS);
                 }
             } else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE && !isJumping){
                 isJumping = true;
@@ -156,14 +134,10 @@ int main(){
         SDL_SetRenderDrawColor(renderer, windowCl.r, windowCl.g, windowCl.b, 255);
         SDL_RenderCopy(renderer, land, NULL, &landS);
         SDL_RenderCopy(renderer, block, NULL, &blockS);
-
-        meGame.Score(renderer, font, scoresp, TextC, 729, 150);
         SDL_RenderPresent(renderer);
 
         meGame.capFrame(starticks);
     }
-    TTF_CloseFont(font);
-    TTF_Quit();
     meGame.close(window, renderer);
     return 0;
 }
