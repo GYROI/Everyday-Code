@@ -4,7 +4,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
-#include <SDL2/SDL_ttf.h>
+#include <cmath>
+#include <cstdlib>
 using namespace std;
 class Game{
     public :
@@ -13,8 +14,8 @@ class Game{
         void capFrame(Uint32 startticks);
         SDL_Texture* loadTexture(SDL_Renderer*& renderer, const string& path);
         bool checkCol(SDL_Rect& P, SDL_Rect& B);
-        void returnMario(SDL_Rect& marioRect);
-        void Score(SDL_Renderer*& renderer, TTF_Font*& font, const char* text, SDL_Color& color, int x, int y);
+        void RandomizeBlock(SDL_Rect& blockRect);
+        void returnMario(SDL_Rect& marioRect, SDL_Rect& blockRect);
 };
 
 #endif // GAME_H
