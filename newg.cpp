@@ -52,8 +52,11 @@ SDL_Texture* Game::loadTexture(SDL_Renderer*& renderer, const string& path){
     return texture;
 }
 void Game::RandomizeBlock(SDL_Rect& blockRect){
-    srand((unsigned)time(NULL));
-    int x = 178 + (rand()% 590);
+    int minX = 178;
+    int maxX = SCREENW - blockRect.w;
+
+    int x = rand() % (maxX - minX + 1) + minX;
+
     blockRect.x = x;
 }
 void Game::returnMario(SDL_Rect& marioRect, SDL_Rect& blockRect){
@@ -83,17 +86,18 @@ void Game::close(SDL_Window*& window, SDL_Renderer*& renderer) {
 
 int main(){
     Game meGame;
+    srand(static_cast<unsigned>(time(NULL)));
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Rect marioSize = {0, 473, 51, 53};
     SDL_Rect landS = {0, 526, 812, 90};
     SDL_Color windowCl = {255,255,255};
     SDL_Rect blockS = {178, 457, 52, 69};
-    SDL_Color TextC = {255, 255, 255};
     meGame.initSDL(window, renderer);
     SDL_Event e;
     bool isRunning = true;
     bool isJumping = false;
+    bool isDead = false;
     int jumpH = 0;
 
     SDL_Texture* texture = meGame.loadTexture(renderer, "C:/Users/User/Desktop/SDL/mario/textures/t1.bmp");
@@ -102,6 +106,7 @@ int main(){
 
     while(isRunning){
         Uint32 starticks = SDL_GetTicks();
+
         while(SDL_PollEvent(&e) != 0){
             if(e.type == SDL_QUIT){
                 isRunning = false;
@@ -110,7 +115,7 @@ int main(){
             } else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RIGHT){
                 if(!meGame.checkCol(marioSize, blockS)){
                     marioSize.x += 10;
-                     meGame.returnMario(marioSize, blockS);
+                    meGame.returnMario(marioSize, blockS);
                 }
             } else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE && !isJumping){
                 isJumping = true;
