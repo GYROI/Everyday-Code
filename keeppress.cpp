@@ -30,13 +30,31 @@ int main(int argc, char* argv[]) {
     }
 
     bool quit = false;
+    bool pressed = false;
+
     SDL_Event e;
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             } else if(e.type == SDL_KEYDOWN){
-                
+                if(e.key.keysym.sym == SDLK_a){
+                    pressed = true;
+                }
+            }
+        }
+
+        if(pressed){
+            load.w += 40;
+            if(load.w >= bar.w) {
+                load.w = bar.w;
+            }
+            pressed = false;
+        } else {
+            load.w -= 5;
+            if(load.w <= 0){
+                load.w = 0;
+                quit = true;
             }
         }
 
@@ -51,10 +69,6 @@ int main(int argc, char* argv[]) {
         SDL_SetRenderDrawColor(renderer, loadC.r, loadC.g, loadC.b, loadC.a);
         SDL_RenderFillRect(renderer, &load);
 
-        load.w-=10;
-        if(load.w <= 0){
-            quit = true;
-        }
         SDL_Delay(16);
 
         SDL_RenderPresent(renderer);
@@ -63,6 +77,6 @@ int main(int argc, char* argv[]) {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
-  //only added the loading bar progressively descending
+
     return 0;
 }
