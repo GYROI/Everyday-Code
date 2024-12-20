@@ -1,1 +1,1 @@
-I'll try for this 2 weeks to code
+100 hari coding c++
